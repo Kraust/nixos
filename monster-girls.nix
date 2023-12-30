@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+
+  imports = [
+    .../nixos-hardware/raspberry-pi/4
+  ];
+
   # Set Hostname
   networking.hostName = "monster-girls";
 
@@ -42,6 +47,13 @@
       filelight
       libreoffice-qt
       sshfs
+      libraspberrypi
     ];
   };
+
+  # Enable raspberry pi 4 audio.
+  hardware.raspberry-pi."4".audio.enable = true;
+
+  # Enable raspberry pi 4 gpu acceleration.
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
 }
