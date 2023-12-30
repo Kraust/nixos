@@ -98,6 +98,7 @@
       htop
       obs-studio
       git
+      filelight
     ];
   };
 
