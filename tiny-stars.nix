@@ -7,6 +7,10 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   # Wireless Configuration
   boot.extraModulePackages = with config.boot.kernelPackages; [
     rtl8812au
