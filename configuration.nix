@@ -72,36 +72,6 @@
   # Allow for passwordless sudo for the wheel group
   security.sudo.wheelNeedsPassword = false;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kraust = {
-    isNormalUser = true;
-    description = "Kraust";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      neovim
-      neovim-qt
-      firefox-bin
-      mpv
-      hexchat
-      fzf
-      slack
-      steam
-      ripgrep
-      neofetch
-      stunnel
-      mangohud
-      lutris
-      pciutils
-      usbutils
-      winePackages.stable
-      winetricks
-      htop
-      obs-studio
-      git
-      filelight
-    ];
-  };
-
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "kraust";

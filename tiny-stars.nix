@@ -56,4 +56,36 @@
 
   # Docker
   virtualisation.docker.enable = true;
+
+  # Set the user up
+  users.users.kraust = {
+    isNormalUser = true;
+    description = "Kraust";
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    packages = with pkgs; [
+      neovim
+      neovim-qt
+      firefox-bin
+      mpv
+      hexchat
+      fzf
+      slack
+      steam
+      ripgrep
+      neofetch
+      stunnel
+      mangohud
+      lutris
+      pciutils
+      usbutils
+      winePackages.stable
+      winetricks
+      htop
+      obs-studio
+      git
+      filelight
+      libreoffice-qt
+      sshfs
+    ];
+  };
 }
