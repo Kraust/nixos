@@ -3,7 +3,7 @@
 {
 
   imports = [
-    .../nixos-hardware/raspberry-pi/4
+    <nixos-hardware/raspberry-pi/4>
   ];
 
   # Set Hostname
