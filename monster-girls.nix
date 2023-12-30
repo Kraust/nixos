@@ -48,12 +48,17 @@
       libreoffice-qt
       sshfs
       libraspberrypi
+      raspberrypi-eeprom
     ];
   };
 
   # Enable raspberry pi 4 audio.
-  hardware.raspberry-pi."4".audio.enable = true;
-
-  # Enable raspberry pi 4 gpu acceleration.
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  hardware = {
+    raspberry-pi."4".audio.enable = true;
+    raspberry-pi."4".fkms-3d.enable = true;
+    deviceTree = {
+      enable = true;
+      filter = "*rpi-4-*.dtb";
+    };
+  };
 }
