@@ -56,6 +56,7 @@
   hardware = {
     raspberry-pi."4".audio.enable = true;
     raspberry-pi."4".fkms-3d.enable = true;
+    raspberry-pi."4".audio-on-overlay.enable = false;
     deviceTree = {
       enable = true;
     };
