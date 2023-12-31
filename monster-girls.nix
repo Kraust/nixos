@@ -22,7 +22,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.settings.PermitRootLogin = "yes";
+  # services.openssh.settings.PermitRootLogin = "yes";
 
   # Set the user up
   users.users.kraust = {
