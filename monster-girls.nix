@@ -55,7 +55,7 @@
   # Enable raspberry pi 4 audio.
   hardware = {
     raspberry-pi."4".audio.enable = true;
-    raspberry-pi."4".fkms-3d.enable = false;
+    raspberry-pi."4".fkms-3d.enable = true;
     deviceTree = {
       enable = true;
     };
