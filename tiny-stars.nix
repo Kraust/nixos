@@ -90,6 +90,7 @@
       filelight
       libreoffice-qt
       sshfs
+      rdesktop
     ];
   };
 }
