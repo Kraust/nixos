@@ -18,6 +18,9 @@
   boot.initrd.kernelModules = [
     "8812au"
   ];
+  boot.extraModprobeConfig = ''
+    options 8812au rtw_led_ctrl=0
+  '';
 
   # OpenGL Config
   hardware.opengl = {
@@ -70,27 +73,56 @@
       neovim
       neovim-qt
       firefox-bin
-      mpv
       hexchat
       fzf
       slack
-      steam
       ripgrep
       neofetch
       stunnel
-      mangohud
-      lutris
       pciutils
       usbutils
-      winePackages.stable
-      winetricks
       htop
       obs-studio
       git
-      filelight
-      libreoffice-qt
       sshfs
       rdesktop
+      nodejs
+      qbittorrent
+
+      libreoffice-qt
+      filelight
+
+      # Python
+      (python3.withPackages(ps: with ps; [
+        python-lsp-server
+        setuptools
+        flake8
+        python-lsp-black
+        pyls-isort
+      ]))
+
+      # MPV
+      mpv
+      yad
+      ffmpeg
+      kdialog
+      mkvtoolnix
+      imagemagick
+
+      # Gaming
+      steam
+      mangohud
+      lutris
+      winePackages.stable
+      winetricks
+
+      # lua
+      lua
+      lua-language-server
+
+      # go
+      go
+
     ];
   };
 }
