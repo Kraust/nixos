@@ -22,6 +22,13 @@
     options 8812au rtw_led_ctrl=0
   '';
 
+  # tmpfs
+  fileSystems."/tmp" = { 
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [ "defaults" "size=1G" "mode=777" ];
+  };
+
   # OpenGL Config
   hardware.opengl = {
     enable = true;
