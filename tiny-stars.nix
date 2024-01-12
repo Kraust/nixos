@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+
   # Set Hostname
   networking.hostName = "tiny-stars";
 
@@ -21,13 +22,9 @@
   boot.extraModprobeConfig = ''
     options 8812au rtw_led_ctrl=0
   '';
+  boot.kernelParams = [ "rcu_nocbs=0-15" ];
 
-  # tmpfs
-  fileSystems."/tmp" = { 
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = [ "defaults" "size=1G" "mode=777" ];
-  };
+  boot.tmp.useTmpfs=true;
 
   # OpenGL Config
   hardware.opengl = {
@@ -68,6 +65,9 @@
   # Xbox One Controller
   hardware.xone.enable = true;
 
+  # Tablet
+  hardware.opentabletdriver.enable = true;
+
   # Docker
   virtualisation.docker.enable = true;
 
@@ -95,9 +95,11 @@
       rdesktop
       nodejs
       qbittorrent
-
+      inkscape
+      cpu-x
       libreoffice-qt
       filelight
+      gimp
 
       # Python
       (python3.withPackages(ps: with ps; [
@@ -130,6 +132,9 @@
       # go
       go
 
+      opentabletdriver
+
+      (pkgs.callPackage /home/kraust/git/nixos/sto-cat.nix {})
     ];
   };
 }
