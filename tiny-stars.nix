@@ -2,8 +2,15 @@
 
 {
 
+  imports = [
+    <home-manager/nixos>
+  ];
+
   # Set Hostname
   networking.hostName = "tiny-stars";
+
+  # Enable zram
+  zramSwap.enable = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -16,13 +23,21 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [
     rtl8812au
   ];
+
   boot.initrd.kernelModules = [
     "8812au"
+  ];
+
+  # Blacklist watchdog.
+  boot.blacklistedKernelModules = [
+    "sp5100_tco"
   ];
   boot.extraModprobeConfig = ''
     options 8812au rtw_led_ctrl=0
   '';
-  boot.kernelParams = [ "rcu_nocbs=0-15" ];
+  boot.kernelParams = [
+    "rcu_nocbs=0-15" 
+  ];
 
   boot.tmp.useTmpfs=true;
 
@@ -70,6 +85,13 @@
 
   # Docker
   virtualisation.docker.enable = true;
+
+  # OOM KIller
+  services.earlyoom = {
+    enable = true;
+    freeSwapThreshold = 2;
+    freeMemThreshold = 2;
+  };
 
   # Set the user up
   users.users.kraust = {
@@ -124,6 +146,7 @@
       lutris
       winePackages.stable
       winetricks
+      gamemode
 
       # lua
       lua
@@ -135,6 +158,8 @@
       opentabletdriver
 
       (pkgs.callPackage /home/kraust/git/nixos/sto-cat.nix {})
+
+      home-manager
     ];
   };
 }
