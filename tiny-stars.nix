@@ -9,9 +9,6 @@
   # Set Hostname
   networking.hostName = "tiny-stars";
 
-  # Enable zram
-  zramSwap.enable = true;
-
   # Enable networking
   networking.networkmanager.enable = true;
 
