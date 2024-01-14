@@ -49,6 +49,7 @@
       sshfs
       libraspberrypi
       raspberrypi-eeprom
+      home-manager
     ];
   };
 
