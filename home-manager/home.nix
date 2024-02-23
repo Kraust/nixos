@@ -6,6 +6,12 @@
   home.username = "kraust";
   home.homeDirectory = "/home/kraust";
 
+  imports = [
+    # ./pantheon.nix
+    ./hyprland.nix
+    ./kitty.nix
+  ];
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -73,6 +79,22 @@
     home-manager.enable = true;
     bash = {
       enable = true;
+      historyFileSize = 1000000;
+      initExtra =
+      ''
+      set_prompt() {
+        branch=$(git branch 2> /dev/null | grep '*' )
+        if [ $? -eq 0 ]
+          then
+            pwd=$(basename "$(git rev-parse --show-toplevel 2> /dev/null)")
+            export PS1="$pwd $branch> "
+          else
+            pwd=$(basename "$PWD")
+            export PS1="$pwd> "
+        fi
+      }
+      PROMPT_COMMAND=set_prompt
+      '';
     };
     fzf = {
       enable = true;
@@ -85,63 +107,49 @@
   manual.manpages.enable = false;
   manual.json.enable = false;
 
-
-  wayland.windowManager.hyprland = {
+  qt = {
     enable = true;
-    settings = {
-      "$mod" = "SUPER";
-      bind = [
-        "$mod, N, exec, nvim-qt"
-        "$mod, F, exec, firefox"
-        "$mod, R, exec, hyprctl reload"
-        "$mod SHIFT, left, movewindow, l"
-        "$modSHIFT, right, movewindow, r"
-        "$mod SHIFT, up, movewindow, u"
-        "$mod SHIFT, down, movewindow, d"
-        "$mod, B, exec, pkill -SIGUSR1 waybar"
-        "$mod, SPACE, exec, pkill wofi || wofi --show=drun"
-        "$mod, Q, killactive"
-      ];
-      monitor = [
-        "DP-2, 3840x2160, 0x0, 1"
-        "DP-3, 3840x2160, 3840x0, 1"
-      ];
-      input = {
-        sensitivity = 1.25;
-        force_no_accel = true;
-      };
-      exec-once = [
-        "waybar"
-      ];
-      windowrule = [
-        "float,^(steam)$"
-        "float,^(hexchat)$"
-     ];
+    platformTheme = "gnome";
+    style = {
+      name = "adwaita-dark";
+      package = pkgs.adwaita-qt;
     };
   };
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
-  };
+  fonts.fontconfig.enable = true;
 
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.libsForQt5.breeze-gtk;
-      name = "Breeze-Dark";
+      name = "Catppuccin-Mocha-Compact-Rosewater-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [
+          "rosewater"
+        ];
+        size = "compact";
+        tweaks = [ 
+          "rimless"
+        ];
+        variant = "mocha";
+      };
     };
+  };
 
-    iconTheme = {
-      package = pkgs.libsForQt5.breeze-gtk;
-      name = "Breeze-Dark";
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
     };
+  };
 
-    font = {
-      name = "Sans";
-      size = 11;
-    };
+  services.mako = {
+    enable = true;
+    defaultTimeout = 60000;
+    backgroundColor = "#1e1e2e";
+    textColor = "#cdd6f4";
+    borderColor = "#89b4fa";
+    progressColor = "over #313244";
   };
 }

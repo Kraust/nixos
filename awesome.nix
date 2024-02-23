@@ -1,3 +1,5 @@
+{ config, pkgs, ... }:
+
 {
   services.xserver = {
     enable = true;
@@ -11,8 +13,10 @@
       sddm = {
         enable = true;
       };
-      defaultSession = "plasmawayland";
+      defaultSession = "none+awesome";
     };
-    desktopManager.plasma5.enable = true;
+    windowManager.awesome = {
+      enable = true;
+    };
   };
 }

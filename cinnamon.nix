@@ -8,11 +8,11 @@
         enable = true;
         user = "kraust";
       };
-      sddm = {
+      lightdm = {
         enable = true;
       };
-      defaultSession = "plasmawayland";
     };
-    desktopManager.plasma5.enable = true;
+    desktopManager.cinnamon.enable = true;
   };
+  security.pam.services.lightdm.enableGnomeKeyring = true;
 }

@@ -6,6 +6,9 @@
     <home-manager/nixos>
   ];
 
+  # Use rt kernel.
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   # Set Hostname
   networking.hostName = "tiny-stars";
 
@@ -33,7 +36,6 @@
     options 8812au rtw_led_ctrl=0
   '';
   boot.kernelParams = [
-    "rcu_nocbs=0-15" 
   ];
 
   boot.tmp.useTmpfs=true;
@@ -81,7 +83,10 @@
   hardware.opentabletdriver.enable = true;
 
   # Docker
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = true;
+  };
 
   # OOM KIller
   services.earlyoom = {
@@ -90,16 +95,26 @@
     freeMemThreshold = 2;
   };
 
+  # Testing
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      8083 
+    ];
+    allowedUDPPortRanges = [
+    ];
+  };
+
   # Set the user up
   users.users.kraust = {
     isNormalUser = true;
     description = "Kraust";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" ];
     packages = with pkgs; [
       neovim
       neovim-qt
       firefox-bin
-      hexchat
+      kvirc
       fzf
       slack
       ripgrep
@@ -107,17 +122,15 @@
       stunnel
       pciutils
       usbutils
-      htop
       obs-studio
       git
       sshfs
-      rdesktop
+      remmina
       nodejs
       qbittorrent
       inkscape
       cpu-x
       libreoffice-qt
-      filelight
       gimp
 
       # Python
@@ -141,8 +154,6 @@
       steam
       mangohud
       lutris
-      winePackages.stable
-      winetricks
       gamemode
 
       # lua
@@ -157,6 +168,30 @@
       (pkgs.callPackage /home/kraust/git/nixos/sto-cat.nix {})
 
       home-manager
-    ];
+      plank
+      bamf
+      gscreenshot
+      xdg-desktop-portal
+      slurp
+      libnotify
+      cargo
+      virtualenv
+      pre-commit
+      protontricks
+      wireshark
+      tcpdump
+      protonup
+      protonup-qt
+      nvd
+      nix-output-monitor
+      btop
+      hyprpaper
+   ];
+  };
+
+  environment.sessionVariables = {
+    STEAM_FORCE_DESKTOPUI_SCALING = "1";
+    GDK_SCALE = "1";
+    MUFFIN_NO_SHADOWS = "1";
   };
 }

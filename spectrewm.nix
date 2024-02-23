@@ -1,3 +1,5 @@
+{ config, pkgs, ... }:
+
 {
   services.xserver = {
     enable = true;
@@ -11,8 +13,13 @@
       sddm = {
         enable = true;
       };
-      defaultSession = "plasmawayland";
     };
-    desktopManager.plasma5.enable = true;
+    windowManager.spectrwm.enable = true;
+  };
+
+  users.users.kraust = {
+    packages = with pkgs; [
+      dmenu
+    ];
   };
 }

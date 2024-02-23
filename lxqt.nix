@@ -8,11 +8,10 @@
         enable = true;
         user = "kraust";
       };
-      sddm = {
+      lightdm = {
         enable = true;
       };
-      defaultSession = "plasmawayland";
     };
-    desktopManager.plasma5.enable = true;
+    desktopManager.lxqt.enable = true;
   };
 }

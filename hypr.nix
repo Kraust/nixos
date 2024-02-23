@@ -1,3 +1,5 @@
+{ config, pkgs, ... }:
+
 {
   services.xserver = {
     enable = true;
@@ -8,11 +10,17 @@
         enable = true;
         user = "kraust";
       };
-      sddm = {
+      lightdm = {
         enable = true;
       };
-      defaultSession = "plasmawayland";
     };
-    desktopManager.plasma5.enable = true;
+    windowManager.hypr = {
+      enable = true;
+    };
+  };
+
+  users.users.kraust = {
+    packages = with pkgs; [
+    ];
   };
 }
