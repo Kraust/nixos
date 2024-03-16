@@ -15,9 +15,10 @@
 
       "$mod, Q, killactive"
       "$mod, F, togglefloating"
+      "$mod, X, fullscreen"
       "$mod, F, resizeactive, exact 1920 1080"
       "$mod, R, exec, hyprctl reload"
-      "$mod, V, exec, notify-send \"$(nmcli con up id CSPi 2>&1)\""
+      "$mod, V, exec, nmcli con up id CSPi --ask"
       "$mod, Space, exec, wofi --show=drun"
 
       ", print, exec, grimshot savecopy area ~/Pictures/Screenshots/$(date +%Y%m%d%H%M%S).png"
@@ -47,7 +48,7 @@
 
     bindl = [
       ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ", XF86AudioPlay, exec, playerctl play-pause"
+      ", XF86AudioPlay, exec, playerctl --all-players play-pause"
     ];
 
     bindm = [
@@ -62,24 +63,29 @@
 
     general = {
       border_size = "0";
-      gaps_in = "0";
-      gaps_out = "0";
+      gaps_in = "5";
+      gaps_out = "5";
+    };
+
+    decoration = {
+      rounding = 5;
+      drop_shadow = true;
     };
 
     animations = {
-      enabled = false;
+      enabled = true;
     };
 
     exec-once = [
       "mako"
       "hyprpaper"
       "[workspace 1 silent] LD_LIBRARY_PATH=/run/opengl-driver/lib kitty btop"
-      "[workspace 1 silent] kvirc"
+      "[workspace 1 silent] hexchat"
       "[workspace 1 silent] nemo"
       "[workspace 2 silent] nvim-qt"
       "[workspace 3 silent] ~/bin/hpg10-2"
-      "[workspace 4 silent] steam"
-      "[workspace 5 silent] remmina"
+      "[workspace 4 silent] remmina"
+      # "[workspace 4 silent] steam"
       "[workspace 10 silent] firefox"
     ];
 
@@ -92,11 +98,32 @@
       "opacity 0.9,class:(nvim-qt)"
       "opacity 0.9,class:(kitty)"
       "opacity 0.9,class:(nemo)"
+      "opacity 0.9,class:(Hexchat)"
+      "opacity 0.9,title:(Open Source Combatlog Reader)"
+      "float,title:(Open Source Combatlog Reader)"
+      "float,title:(Numeric Received)"
+      "float,class:(xdg-desktop-portal-gtk)"
+      "forceinput, class:^steam_app_.*$"
+
+      # Workspace Rules
+      "workspace 10 silent,class:(firefox)"
     ];
 
     workspace = [
       "1, monitor:DP-2, default:true"
       "10, monitor:DP-3, default:true"
+    ];
+
+    env = [
+      "GDK_BACKEND=wayland,x11"
+      "SDL_VIDEODRIVER=wayland"
+      "CLUTTER_BACKEND=wayland"
+      "QT_AUTO_SCREEN_SCALE_FACTOR=1"
+      "QT_QPA_PLATFORM,wayland;xcb"
+      "GBM_BACKEND=nvidia-drm"
+      "__GLX_VENDOR_LIBRARY_NAME=nvidia"
+      "LIBVA_DRIVER_NAME=nvidia"
+      "WLR_DRM_NO_ATOMIC=1"
     ];
   };
 }

@@ -4,10 +4,11 @@
 
   imports = [
     <home-manager/nixos>
+    ./nvidia.nix
   ];
 
   # Use rt kernel.
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   # Set Hostname
   networking.hostName = "tiny-stars";
@@ -45,35 +46,6 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-  };
-
-  # Nvidia Driver Config
-  services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia = {
-    # Modesetting is required.
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    powerManagement.enable = false;
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
-
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # Xbox One Controller
@@ -114,9 +86,8 @@
       neovim
       neovim-qt
       firefox-bin
-      kvirc
+      hexchat
       fzf
-      slack
       ripgrep
       neofetch
       stunnel
@@ -128,8 +99,6 @@
       remmina
       nodejs
       qbittorrent
-      inkscape
-      cpu-x
       libreoffice-qt
       gimp
 
@@ -143,7 +112,7 @@
       ]))
 
       # MPV
-      mpv
+      (mpv.override {scripts = [mpvScripts.mpris];})
       yad
       ffmpeg
       kdialog
@@ -165,27 +134,18 @@
 
       opentabletdriver
 
-      (pkgs.callPackage /home/kraust/git/nixos/sto-cat.nix {})
-
       home-manager
-      plank
-      bamf
-      gscreenshot
       xdg-desktop-portal
-      slurp
-      libnotify
-      cargo
       virtualenv
       pre-commit
       protontricks
-      wireshark
-      tcpdump
       protonup
       protonup-qt
       nvd
       nix-output-monitor
       btop
       hyprpaper
+      chromium
    ];
   };
 
@@ -193,5 +153,15 @@
     STEAM_FORCE_DESKTOPUI_SCALING = "1";
     GDK_SCALE = "1";
     MUFFIN_NO_SHADOWS = "1";
+    NIXOS_OZONE_WL = "1";
   };
+
+  # This apparently allows you to add stuff to your LD_LIBRARY_PATH
+  # https://nix.dev/guides/faq.html
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+  ];
+
+  # TODO: Create SystemD Services
+  # https:/nixos.wiki/wiki/Extend_NixOS
 }

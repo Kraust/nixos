@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
 
   # bash script to let dbus know about important env variables and
@@ -41,8 +41,10 @@ let
 in {
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
     displayManager = {
       autoLogin = {
         enable = true;
@@ -62,12 +64,10 @@ in {
   users.users.kraust = {
     packages = with pkgs; [
       dbus
-      dbus-sway-environment
+      # dbus-sway-environment
       configure-gtk
       wayland
-      waybar
       wofi
-      killall
       kitty
       sway-contrib.grimshot
       gnome.adwaita-icon-theme
@@ -97,7 +97,11 @@ in {
     enable = true;
     wlr.enable = true;
     # gtk portal needed to make gtk apps happy
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [ 
+      # pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   programs.dconf.enable = true;
