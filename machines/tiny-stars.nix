@@ -4,7 +4,7 @@
 
   imports = [
     <home-manager/nixos>
-    ./nvidia.nix
+    ../software/nvidia.nix
   ];
 
   # Use rt kernel.
