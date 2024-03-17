@@ -85,6 +85,7 @@
     packages = with pkgs; [
       neovim
       neovim-qt
+
       firefox-bin
       hexchat
       fzf

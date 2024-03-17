@@ -111,5 +111,8 @@
 
   programs.dconf.enable = true;
 
+  programs.neovim.enable = true ;
+  programs.neovim.defaultEditor = true;
+
   system.stateVersion = "23.11";
 }

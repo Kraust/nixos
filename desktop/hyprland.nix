@@ -77,6 +77,8 @@ in {
       cinnamon.nemo-with-extensions
       cinnamon.pix
       playerctl
+      wl-clipboard
+      xclip
     ];
   };
 
