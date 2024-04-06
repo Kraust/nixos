@@ -1,3 +1,5 @@
+# vim: set sw=2:
+
 { config, pkgs, ... }:
 
 {
@@ -5,6 +7,7 @@
   imports = [
     <home-manager/nixos>
     ../software/nvidia.nix
+    #./software/nouveau.nix
   ];
 
   # Use rt kernel.
@@ -54,6 +57,28 @@
   # Tablet
   hardware.opentabletdriver.enable = true;
 
+  # Scanner
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.epkowa ];
+
+  # Needed by scanner?
+  # services.avahi.enable = true;
+  # services.avahi.nssmdns64 = true;
+
+  # Printing
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+  };
+
+  # GIMP support
+  # ln -s /run/current-system/sw/bin/xsane ~/.config/GIMP/2.10/plug-ins/xsane
+  nixpkgs.config.packageOverrides = pkgs: {
+    xsaneGimp = pkgs.xsane.override { gimpSupport = true; };
+  };
+
   # Docker
   virtualisation.docker = {
     enable = true;
@@ -81,7 +106,7 @@
   users.users.kraust = {
     isNormalUser = true;
     description = "Kraust";
-    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" "scanner" "lp" ];
     packages = with pkgs; [
       neovim
       neovim-qt
@@ -147,6 +172,13 @@
       btop
       hyprpaper
       chromium
+      simple-scan
+      steam-run
+
+    (pkgs.writeShellScriptBin "nmu" ''
+      export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
+      exec nvim-qt "$@"
+    '')
    ];
   };
 
@@ -159,9 +191,12 @@
 
   # This apparently allows you to add stuff to your LD_LIBRARY_PATH
   # https://nix.dev/guides/faq.html
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-  ];
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      libgit2
+    ];
+  };
 
   # TODO: Create SystemD Services
   # https:/nixos.wiki/wiki/Extend_NixOS

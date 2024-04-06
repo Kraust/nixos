@@ -1,4 +1,4 @@
-# vim: set shiftwidth=2
+# vim: set sw=2:
 
 { config, lib, pkgs, ... }:
 {
@@ -82,10 +82,8 @@
       "[workspace 1 silent] LD_LIBRARY_PATH=/run/opengl-driver/lib kitty btop"
       "[workspace 1 silent] hexchat"
       "[workspace 1 silent] nemo"
-      "[workspace 2 silent] nvim-qt"
-      "[workspace 3 silent] ~/bin/hpg10-2"
-      "[workspace 4 silent] remmina"
-      # "[workspace 4 silent] steam"
+      "[workspace 1 silent] nmu"
+      "[workspace 9 silent] remmina"
       "[workspace 10 silent] firefox"
     ];
 
@@ -99,7 +97,7 @@
       "opacity 0.9,class:(kitty)"
       "opacity 0.9,class:(nemo)"
       "opacity 0.9,class:(Hexchat)"
-      "opacity 0.9,title:(Open Source Combatlog Reader)"
+      "opacity 1.0,title:(Open Source Combatlog Reader)"
       "float,title:(Open Source Combatlog Reader)"
       "float,title:(Numeric Received)"
       "float,class:(xdg-desktop-portal-gtk)"
