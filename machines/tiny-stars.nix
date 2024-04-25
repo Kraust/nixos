@@ -109,7 +109,14 @@
     extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" "scanner" "lp" ];
     packages = with pkgs; [
       neovim
-      neovim-qt
+      (pkgs.symlinkJoin {
+        name = "neovim-qt";
+        paths = [ pkgs.neovim-qt ];
+        buildInputs = [ pkgs.makeWrapper ] ;
+        postBuild = ''
+          wrapProgram $out/bin/nvim-qt --set LD_LIBRARY_PATH ${lib.makeLibraryPath [pkgs.libgit2]}
+        '';
+      })
 
       firefox-bin
       hexchat
@@ -122,20 +129,13 @@
       obs-studio
       git
       sshfs
-      remmina
       nodejs
       qbittorrent
       libreoffice-qt
       gimp
 
-      # Python
-      (python3.withPackages(ps: with ps; [
-        python-lsp-server
-        setuptools
-        flake8
-        python-lsp-black
-        pyls-isort
-      ]))
+      # NOTE: Go to new model of installing python packages in a venv + sourcing.
+      python312
 
       # MPV
       (mpv.override {scripts = [mpvScripts.mpris];})
@@ -175,10 +175,6 @@
       simple-scan
       steam-run
 
-    (pkgs.writeShellScriptBin "nmu" ''
-      export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
-      exec nvim-qt "$@"
-    '')
    ];
   };
 

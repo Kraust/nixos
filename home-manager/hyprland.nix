@@ -82,8 +82,7 @@
       "[workspace 1 silent] LD_LIBRARY_PATH=/run/opengl-driver/lib kitty btop"
       "[workspace 1 silent] hexchat"
       "[workspace 1 silent] nemo"
-      "[workspace 1 silent] nmu"
-      "[workspace 9 silent] remmina"
+      "[workspace 1 silent] nvim-qt"
       "[workspace 10 silent] firefox"
     ];
 

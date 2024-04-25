@@ -94,6 +94,7 @@
         fi
       }
       PROMPT_COMMAND=set_prompt
+      source ~/venv/bin/activate
       '';
     };
     fzf = {
