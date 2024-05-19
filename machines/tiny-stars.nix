@@ -7,7 +7,7 @@
   imports = [
     <home-manager/nixos>
     ../software/nvidia.nix
-    #./software/nouveau.nix
+    # ./software/nouveau.nix
   ];
 
   # Use rt kernel.
@@ -42,7 +42,7 @@
   boot.kernelParams = [
   ];
 
-  boot.tmp.useTmpfs=true;
+  boot.tmp.useTmpfs=false;
 
   # OpenGL Config
   hardware.opengl = {
@@ -58,20 +58,20 @@
   hardware.opentabletdriver.enable = true;
 
   # Scanner
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.epkowa ];
+  # hardware.sane.enable = true;
+  # hardware.sane.extraBackends = [ pkgs.epkowa ];
 
   # Needed by scanner?
   # services.avahi.enable = true;
   # services.avahi.nssmdns64 = true;
 
   # Printing
-  services.printing.enable = true;
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    openFirewall = true;
-  };
+  # services.printing.enable = true;
+  # services.avahi = {
+  #   enable = true;
+  #   nssmdns = true;
+  #   openFirewall = true;
+  # };
 
   # GIMP support
   # ln -s /run/current-system/sw/bin/xsane ~/.config/GIMP/2.10/plug-ins/xsane
@@ -135,7 +135,7 @@
       gimp
 
       # NOTE: Go to new model of installing python packages in a venv + sourcing.
-      python312
+      python311
 
       # MPV
       (mpv.override {scripts = [mpvScripts.mpris];})
@@ -160,6 +160,8 @@
 
       opentabletdriver
 
+      statix
+
       home-manager
       xdg-desktop-portal
       virtualenv
@@ -172,10 +174,33 @@
       btop
       hyprpaper
       chromium
-      simple-scan
-      steam-run
+      # simple-scan
+      # steam-run
 
-   ];
+      # Language Servers
+      nodePackages_latest.vscode-html-languageserver-bin
+      nodePackages_latest.vscode-json-languageserver-bin
+      nodePackages_latest.typescript-language-server
+      nodePackages_latest.bash-language-server
+
+      yaml-language-server
+      java-language-server
+      lua-language-server
+      cmake-language-server
+      gopls
+      clang-tools
+
+      python311Packages.python-lsp-server
+      python311Packages.python-lsp-jsonrpc
+      python311Packages.python-lsp-black
+      python311Packages.python-lsp-ruff
+      python311Packages.pyls-isort
+      python311Packages.pyls-flake8
+      python311Packages.flake8
+      python311Packages.isort
+      python311Packages.black
+      ruff
+    ];
   };
 
   environment.sessionVariables = {

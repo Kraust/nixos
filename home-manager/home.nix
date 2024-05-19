@@ -9,6 +9,7 @@
   imports = [
     # ./pantheon.nix
     ./hyprland.nix
+    ./hyprpaper.nix
     ./kitty.nix
   ];
 
@@ -94,7 +95,6 @@
         fi
       }
       PROMPT_COMMAND=set_prompt
-      source ~/venv/bin/activate
       '';
     };
     fzf = {
@@ -110,7 +110,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
+    platformTheme.name = "adwaita";
     style = {
       name = "adwaita-dark";
       package = pkgs.adwaita-qt;

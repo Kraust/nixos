@@ -105,6 +105,9 @@
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
+  nix.settings = {
+    experimental-features = [ "nix-command" ];
+  };
 
   # Enable zram
   zramSwap.enable = true;
