@@ -5,6 +5,7 @@
 {
 
   imports = [
+    # <GuillaumeDesforges/fix-python>
     <home-manager/nixos>
     ../software/nvidia.nix
     # ./software/nouveau.nix
