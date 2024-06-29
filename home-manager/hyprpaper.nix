@@ -6,11 +6,11 @@
     enable = true;
     settings = {
       preload = [
-        "~/Pictures/walpapers/yuru-camp-s3-op-rin.jpg"
+        "~/Pictures/walpapers/0x2wrv20qq7d1.png"
       ];
       wallpaper = [
-        "DP-2,~/Pictures/walpapers/yuru-camp-s3-op-rin.jpg"
-        "DP-3,~/Pictures/walpapers/yuru-camp-s3-op-rin.jpg"
+        "DP-2,~/Pictures/walpapers/0x2wrv20qq7d1.png"
+        "DP-3,~/Pictures/walpapers/0x2wrv20qq7d1.png"
       ];
     };
   };

@@ -94,6 +94,7 @@
       fira-code
       fira-code-symbols
       nerdfonts
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
     fontDir.enable = true;
   };

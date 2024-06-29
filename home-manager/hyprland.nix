@@ -78,10 +78,13 @@
 
     exec-once = [
       "mako"
+      "glance -f  ~/.config/glance/glance.yml"
       "[workspace 1 silent] LD_LIBRARY_PATH=/run/opengl-driver/lib kitty btop"
       "[workspace 1 silent] hexchat"
       "[workspace 1 silent] nemo"
-      "[workspace 1 silent] nvim-qt"
+      "[workspace 1 silent] neovide"
+      "[workspace 3 silent] neovide"
+      "[workspace 4 silent] kitty"
       "[workspace 10 silent] firefox"
     ];
 
@@ -91,7 +94,7 @@
     ];
 
     windowrulev2 = [
-      "opacity 0.9,class:(nvim-qt)"
+      "opacity 0.9,class:(neovide)"
       "opacity 0.9,class:(kitty)"
       "opacity 0.9,class:(nemo)"
       "opacity 0.9,class:(Hexchat)"

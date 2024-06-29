@@ -3,11 +3,7 @@
 {
 
   # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
@@ -33,8 +29,8 @@
   # Nvida driver archive: https://www.nvidia.com/en-us/drivers/unix/linux-amd64-display-archive/
   # 550.54.14 cannot be used as it has a bug with wayland screen sharing and firefox.
   in config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    version = "555.42.02";
-    sha256_64bit = "sha256-k7cI3ZDlKp4mT46jMkLaIrc2YUx1lh1wj/J4SVSHWyk=";
+    version = "555.58";
+    sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
     sha256_aarch64 = "";
     openSha256 = "sha256-wvRdHguGLxS0mR06P5Qi++pDJBCF8pJ8hr4T8O6TJIo=";
     settingsSha256 = "sha256-lZiNZw4dJw4DI/6CI0h0AHbreLm825jlufuK9EB08iw=";

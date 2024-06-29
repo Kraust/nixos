@@ -8,6 +8,7 @@
     # <GuillaumeDesforges/fix-python>
     <home-manager/nixos>
     ../software/nvidia.nix
+    ../users/kraust.nix
     # ./software/nouveau.nix
   ];
 
@@ -24,7 +25,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Wireless Configuration
   boot.extraModulePackages = with config.boot.kernelPackages; [
     rtl8812au
   ];
@@ -46,11 +46,8 @@
   boot.tmp.useTmpfs=false;
 
   # OpenGL Config
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
 
   # Xbox One Controller
   hardware.xone.enable = true;
@@ -83,7 +80,7 @@
   # Docker
   virtualisation.docker = {
     enable = true;
-    enableNvidia = true;
+    # enableNvidia = true;
   };
 
   # OOM KIller
@@ -108,102 +105,9 @@
     isNormalUser = true;
     description = "Kraust";
     extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" "scanner" "lp" ];
-    packages = with pkgs; [
-      neovim
-      (pkgs.symlinkJoin {
-        name = "neovim-qt";
-        paths = [ pkgs.neovim-qt ];
-        buildInputs = [ pkgs.makeWrapper ] ;
-        postBuild = ''
-          wrapProgram $out/bin/nvim-qt --set LD_LIBRARY_PATH ${lib.makeLibraryPath [pkgs.libgit2]}
-        '';
-      })
-
-      firefox-bin
-      hexchat
-      fzf
-      ripgrep
-      neofetch
-      stunnel
-      pciutils
-      usbutils
-      obs-studio
-      git
-      sshfs
-      nodejs
-      qbittorrent
-      libreoffice-qt
-      gimp
-
-      # NOTE: Go to new model of installing python packages in a venv + sourcing.
-      python311
-
-      # MPV
-      (mpv.override {scripts = [mpvScripts.mpris];})
-      yad
-      ffmpeg
-      kdialog
-      mkvtoolnix
-      imagemagick
-
-      # Gaming
-      steam
-      mangohud
-      lutris
-      gamemode
-
-      # lua
-      lua
-      lua-language-server
-
-      # go
-      go
-
-      opentabletdriver
-
-      statix
-
-      home-manager
-      xdg-desktop-portal
-      virtualenv
-      pre-commit
-      protontricks
-      protonup
-      protonup-qt
-      nvd
-      nix-output-monitor
-      btop
-      hyprpaper
-      chromium
-      # simple-scan
-      # steam-run
-
-      # Language Servers
-      nodePackages_latest.vscode-html-languageserver-bin
-      nodePackages_latest.vscode-json-languageserver-bin
-      nodePackages_latest.typescript-language-server
-      nodePackages_latest.bash-language-server
-
-      yaml-language-server
-      java-language-server
-      lua-language-server
-      cmake-language-server
-      gopls
-      clang-tools
-
-      python311Packages.python-lsp-server
-      python311Packages.python-lsp-jsonrpc
-      python311Packages.python-lsp-black
-      python311Packages.python-lsp-ruff
-      python311Packages.pyls-isort
-      python311Packages.pyls-flake8
-      python311Packages.flake8
-      python311Packages.isort
-      python311Packages.black
-      ruff
-    ];
+    shell = pkgs.fish;
   };
-
+  programs.fish.enable = true;
   environment.sessionVariables = {
     STEAM_FORCE_DESKTOPUI_SCALING = "1";
     GDK_SCALE = "1";
@@ -219,6 +123,8 @@
       libgit2
     ];
   };
+
+  programs.wireshark.enable = true;
 
   # TODO: Create SystemD Services
   # https:/nixos.wiki/wiki/Extend_NixOS
