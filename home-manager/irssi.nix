@@ -13,6 +13,12 @@
           "fe-common/core" = {
               theme = "catppuccin";
           };
+          "irc/dcc" = {
+              dcc_autoget = "yes";
+              dcc_autoresume = "yes";
+              dcc_autoget_max_size = "0k";
+              dcc_download_path = "/home/kraust/Downloads/xdcc";
+          }
       }
     '';
     networks = {
