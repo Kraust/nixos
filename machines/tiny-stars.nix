@@ -7,6 +7,7 @@
   imports = [
     # <GuillaumeDesforges/fix-python>
     <home-manager/nixos>
+    <catppuccin/modules/nixos>
     ../software/nvidia.nix
     ../users/kraust.nix
     # ./software/nouveau.nix
@@ -125,6 +126,9 @@
   };
 
   programs.wireshark.enable = true;
+
+  catppuccin.enable = true;
+  catppuccin.flavor = "mocha";
 
   # TODO: Create SystemD Services
   # https:/nixos.wiki/wiki/Extend_NixOS

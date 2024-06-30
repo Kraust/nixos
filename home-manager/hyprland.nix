@@ -1,5 +1,3 @@
-# vim: set sw=2:
-
 { config, lib, pkgs, ... }:
 {
   wayland.windowManager.hyprland.enable = true;
@@ -19,7 +17,7 @@
       "$mod, F, resizeactive, exact 1920 1080"
       "$mod, R, exec, hyprctl reload"
       "$mod, V, exec, nmcli con up id CSPi --ask"
-      "$mod, Space, exec, wofi --show=drun"
+      "$mod, Space, exec, ulauncher"
 
       ", print, exec, grimshot savecopy area ~/Pictures/Screenshots/$(date +%Y%m%d%H%M%S).png"
       "$mod, print, exec, grimshot savecopy active ~/Pictures/Screenshots/$(date +%Y%m%d%H%M%S).png"
@@ -27,18 +25,22 @@
     ++ (
       # workspaces
       # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-      builtins.concatLists (builtins.genList (
-        x: let
-          ws = let
-            c = (x + 1) / 10;
+      builtins.concatLists (builtins.genList
+        (
+          x:
+          let
+            ws =
+              let
+                c = (x + 1) / 10;
+              in
+              builtins.toString (x + 1 - (c * 10));
           in
-            builtins.toString (x + 1 - (c * 10));
-        in [
-          "$mod, ${ws}, workspace, ${toString (x + 1)}"
-          "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
-        ]
-      )
-      10)
+          [
+            "$mod, ${ws}, workspace, ${toString (x + 1)}"
+            "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+          ]
+        )
+        10)
     );
 
     bindel = [
@@ -59,6 +61,7 @@
     monitor = [
       "DP-2, 3840x2160, 0x0, 1"
       "DP-3, 3840x2160, 3840x0, 1"
+      "Unknown-1, disable"
     ];
 
     general = {
@@ -79,12 +82,8 @@
     exec-once = [
       "mako"
       "glance -f  ~/.config/glance/glance.yml"
-      "[workspace 1 silent] LD_LIBRARY_PATH=/run/opengl-driver/lib kitty btop"
-      "[workspace 1 silent] hexchat"
-      "[workspace 1 silent] nemo"
-      "[workspace 1 silent] neovide"
-      "[workspace 3 silent] neovide"
-      "[workspace 4 silent] kitty"
+      "[workspace 1 silent] neovide -- -S home"
+      "[workspace 3 silent] kitty"
       "[workspace 10 silent] firefox"
     ];
 

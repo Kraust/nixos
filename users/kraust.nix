@@ -8,6 +8,7 @@
       ../home-manager/hyprpaper.nix
       ../home-manager/kitty.nix
       ../home-manager/glance.nix
+      ../home-manager/irssi.nix
     ];
     home = {
       username = "kraust";
@@ -78,7 +79,6 @@
         fzf
         ripgrep
         neofetch
-        stunnel
         pciutils
         usbutils
         obs-studio
@@ -133,25 +133,32 @@
         lua51Packages.luarocks
         lua-language-server
 
+        dbus
+        wayland
+        kitty
+        sway-contrib.grimshot
+        mako
+        glib
+        xdg-utils
+        cinnamon.nemo-with-extensions
+        cinnamon.pix
+        playerctl
+        wl-clipboard
+        xclip
+        ulauncher
+        ranger
+        irssi
+
       ];
     };
     programs = {
+
       fish = {
         enable = true;
         interactiveShellInit = ''
           set fish_greeting # Disable greeting
         '';
         plugins = [
-          {
-            name = "catppuccin";
-            src = pkgs.fetchFromGitHub {
-              owner = "catppuccin";
-              repo = "fish";
-              rev = "a3b9eb5eaf2171ba1359fe98f20d226c016568cf";
-              sha256 = "shQxlyoauXJACoZWtRUbRMxmm10R8vOigXwjxBhG8ng=";
-            };
-
-          }
           {
             name = "tide";
             src = pkgs.fetchFromGitHub {
@@ -166,15 +173,18 @@
           home = "cd /home/$USER/";
         };
       };
+
       fzf = {
         enable = true;
       };
+
     };
     fonts.fontconfig.enable = true;
 
-
-    catppuccin.flavor = "mocha";
-    catppuccin.enable = true;
+    catppuccin = {
+      enable = true;
+      flavor = "mocha";
+    };
 
     dconf = {
       enable = true;
