@@ -148,6 +148,9 @@
         ulauncher
         ranger
         irssi
+        fastfetch
+        openconnect
+        jq
 
       ];
     };

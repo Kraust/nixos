@@ -82,7 +82,7 @@
     exec-once = [
       "mako"
       "glance -f  ~/.config/glance/glance.yml"
-      "[workspace 1 silent] neovide -- -S home"
+      "[workspace 1 silent] neovide -- -S ~/.config/nvim/sessions/home"
       "[workspace 3 silent] kitty"
       "[workspace 10 silent] firefox"
     ];
