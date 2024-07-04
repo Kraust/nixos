@@ -78,7 +78,7 @@
         hexchat
         fzf
         ripgrep
-        neofetch
+        nitch
         pciutils
         usbutils
         obs-studio
@@ -148,9 +148,9 @@
         ulauncher
         ranger
         irssi
-        fastfetch
         openconnect
         jq
+        lsd
 
       ];
     };
@@ -160,6 +160,7 @@
         enable = true;
         interactiveShellInit = ''
           set fish_greeting # Disable greeting
+          alias ls "lsd"
         '';
         plugins = [
           {
@@ -172,8 +173,14 @@
             };
           }
         ];
+
         shellAliases = {
           home = "cd /home/$USER/";
+        };
+
+        catppuccin = {
+          enable = true;
+          flavor = "mocha";
         };
       };
 

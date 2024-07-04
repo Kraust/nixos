@@ -66,17 +66,23 @@
 
     general = {
       border_size = "0";
-      gaps_in = "5";
-      gaps_out = "5";
+      gaps_in = "7";
+      gaps_out = "7";
     };
 
     decoration = {
-      rounding = 5;
+      rounding = 7;
       drop_shadow = true;
     };
 
     animations = {
       enabled = true;
+    };
+
+    misc = {
+      disable_hyprland_logo = true;
+      disable_splash_rendering = true;
+      initial_workspace_tracking = 2;
     };
 
     exec-once = [
@@ -93,12 +99,13 @@
     ];
 
     windowrulev2 = [
-      "opacity 0.9,class:(neovide)"
-      "opacity 0.9,class:(kitty)"
-      "opacity 0.9,class:(nemo)"
-      "opacity 0.9,class:(Hexchat)"
-      "opacity 1.0,title:(Open Source Combatlog Reader)"
+      "opacity 0.8,class:(neovide)"
+      "opacity 0.8,class:(kitty)"
+      "opacity 0.8,title:(Open Source Combatlog Reader)"
+      "opacity 0.8,title:(app.py)"
+      "size 300 200,title:(app.py)"
       "float,title:(Open Source Combatlog Reader)"
+      "float,title:(app.py)"
       "float,title:(Numeric Received)"
       "float,class:(xdg-desktop-portal-gtk)"
       "forceinput, class:^steam_app_.*$"
