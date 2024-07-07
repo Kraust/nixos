@@ -1,4 +1,8 @@
 { config, lib, pkgs, ... }:
+
+let
+    opacity = "0.8";
+in
 {
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.settings = {
@@ -66,13 +70,22 @@
 
     general = {
       border_size = "0";
-      gaps_in = "7";
-      gaps_out = "7";
+      gaps_in = "0";
+      gaps_out = "0";
     };
 
     decoration = {
-      rounding = 7;
-      drop_shadow = true;
+      rounding = 0;
+      drop_shadow = false;
+      blur = {
+        enabled = true;
+        size = 10;
+        passes = 3;
+        new_optimizations = true;
+        ignore_opacity = true;
+        noise = 0;
+        brightness = 0.90;
+      };
     };
 
     animations = {
@@ -89,7 +102,7 @@
       "mako"
       "glance -f  ~/.config/glance/glance.yml"
       "[workspace 1 silent] neovide -- -S ~/.config/nvim/sessions/home"
-      "[workspace 3 silent] kitty"
+      "[workspace 3 silent] ~/bin/hpg10-2"
       "[workspace 10 silent] firefox"
     ];
 
@@ -99,10 +112,10 @@
     ];
 
     windowrulev2 = [
-      "opacity 0.8,class:(neovide)"
-      "opacity 0.8,class:(kitty)"
-      "opacity 0.8,title:(Open Source Combatlog Reader)"
-      "opacity 0.8,title:(app.py)"
+      "opacity ${opacity},class:(neovide)"
+      "opacity ${opacity},class:(kitty)"
+      "opacity ${opacity},title:(Open Source Combatlog Reader)"
+      "opacity ${opacity},title:(app.py)"
       "size 300 200,title:(app.py)"
       "float,title:(Open Source Combatlog Reader)"
       "float,title:(app.py)"

@@ -1,11 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
+
   home-manager.users.kraust = {
     imports = [
       <catppuccin/modules/home-manager>
       ../home-manager/hyprland.nix
       ../home-manager/hyprpaper.nix
+      ../home-manager/ranger.nix
       ../home-manager/kitty.nix
       ../home-manager/glance.nix
       ../home-manager/irssi.nix
@@ -102,6 +104,8 @@
 
         # Gaming
         steam
+        steamcmd
+        steam-tui
         mangohud
         lutris
         gamemode
@@ -128,6 +132,7 @@
         busybox
         clipnotify
         winetricks
+        wineWowPackages.waylandFull
 
         lua5_1
         lua51Packages.luarocks
