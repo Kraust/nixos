@@ -77,7 +77,6 @@
         })
 
         firefox-bin
-        hexchat
         fzf
         ripgrep
         nitch
@@ -86,8 +85,6 @@
         obs-studio
         git
         sshfs
-        nodejs
-        qbittorrent
         libreoffice-qt
         gimp
         fish
@@ -104,8 +101,6 @@
 
         # Gaming
         steam
-        steamcmd
-        steam-tui
         mangohud
         lutris
         gamemode
@@ -129,14 +124,9 @@
         chromium
         wireshark
         alacritty
-        busybox
         clipnotify
         winetricks
         wineWowPackages.waylandFull
-
-        lua5_1
-        lua51Packages.luarocks
-        lua-language-server
 
         dbus
         wayland

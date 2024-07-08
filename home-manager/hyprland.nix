@@ -120,6 +120,8 @@ in
       "float,title:(Open Source Combatlog Reader)"
       "float,title:(app.py)"
       "float,title:(Numeric Received)"
+      "float,class:(mpv)"
+      "float,class:(com.obsproject.Studio)"
       "float,class:(xdg-desktop-portal-gtk)"
       "forceinput, class:^steam_app_.*$"
 

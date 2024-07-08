@@ -44,7 +44,7 @@
   boot.kernelParams = [
   ];
 
-  boot.tmp.useTmpfs=false;
+  boot.tmp.useTmpfs = false;
 
   # OpenGL Config
   hardware.graphics.enable = true;
@@ -95,7 +95,7 @@
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [
-      8083 
+      8083
     ];
     allowedUDPPortRanges = [
     ];
@@ -116,20 +116,8 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  # This apparently allows you to add stuff to your LD_LIBRARY_PATH
-  # https://nix.dev/guides/faq.html
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      libgit2
-    ];
-  };
-
   programs.wireshark.enable = true;
 
   catppuccin.enable = true;
   catppuccin.flavor = "mocha";
-
-  # TODO: Create SystemD Services
-  # https:/nixos.wiki/wiki/Extend_NixOS
 }
