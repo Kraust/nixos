@@ -2,19 +2,20 @@
 
 { config, pkgs, ... }:
 
+let
+  kernel = pkgs.linuxPackages_6_8;
+in
 {
 
   imports = [
-    # <GuillaumeDesforges/fix-python>
     <home-manager/nixos>
     <catppuccin/modules/nixos>
-    ../software/nvidia.nix
     ../users/kraust.nix
-    # ./software/nouveau.nix
+    ../software/nvidia.nix
   ];
 
   # Use rt kernel.
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  boot.kernelPackages = kernel;
 
   # Set Hostname
   networking.hostName = "tiny-stars";
@@ -26,8 +27,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    rtl8812au
+  # boot.extraModulePackages = with config.boot.kernelPackages; [
+  # ];
+
+  boot.extraModulePackages = [
+    (config.boot.kernelPackages.callPackage ../software/rtl8812au.nix { })
   ];
 
   boot.initrd.kernelModules = [
@@ -105,7 +109,7 @@
   users.users.kraust = {
     isNormalUser = true;
     description = "Kraust";
-    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" "scanner" "lp" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" "scanner" "lp" "gamemode" ];
     shell = pkgs.fish;
   };
   programs.fish.enable = true;
@@ -120,4 +124,7 @@
 
   catppuccin.enable = true;
   catppuccin.flavor = "mocha";
+
+  programs.gamemode.enable = true;
+  programs.gamemode.settings.general.inhibit_screensaver = 0;
 }

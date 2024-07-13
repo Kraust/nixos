@@ -21,7 +21,7 @@ in
       "$mod, F, resizeactive, exact 1920 1080"
       "$mod, R, exec, hyprctl reload"
       "$mod, V, exec, nmcli con up id CSPi --ask"
-      "$mod, Space, exec, ulauncher"
+      "$mod, Space, exec, rofi -show drun"
 
       ", print, exec, grimshot savecopy area ~/Pictures/Screenshots/$(date +%Y%m%d%H%M%S).png"
       "$mod, print, exec, grimshot savecopy active ~/Pictures/Screenshots/$(date +%Y%m%d%H%M%S).png"
@@ -95,7 +95,6 @@ in
     misc = {
       disable_hyprland_logo = true;
       disable_splash_rendering = true;
-      initial_workspace_tracking = 2;
     };
 
     exec-once = [
@@ -117,6 +116,7 @@ in
       "opacity ${opacity},title:(Open Source Combatlog Reader)"
       "opacity ${opacity},title:(app.py)"
       "size 300 200,title:(app.py)"
+      "size 1600 900,class:(com.obsproject.Studio)"
       "float,title:(Open Source Combatlog Reader)"
       "float,title:(app.py)"
       "float,title:(Numeric Received)"

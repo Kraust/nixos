@@ -77,22 +77,17 @@
         })
 
         firefox-bin
-        fzf
         ripgrep
         nitch
         pciutils
         usbutils
         obs-studio
-        git
         sshfs
         libreoffice-qt
         gimp
-        fish
-
         python3
 
         # MPV
-        (mpv.override { scripts = [ mpvScripts.mpris ]; })
         yad
         ffmpeg
         kdialog
@@ -100,17 +95,18 @@
         imagemagick
 
         # Gaming
-        steam
-        mangohud
-        lutris
-        gamemode
+        (steam.override {
+          extraPkgs = pkgs: with pkgs; [
+            gamescope
+            mangohud
+          ];
+        })
 
         # go
         go
 
         opentabletdriver
 
-        home-manager
         xdg-desktop-portal
         virtualenv
         pre-commit
@@ -140,17 +136,14 @@
         playerctl
         wl-clipboard
         xclip
-        ulauncher
         ranger
         irssi
         openconnect
         jq
         lsd
-
       ];
     };
     programs = {
-
       fish = {
         enable = true;
         interactiveShellInit = ''
@@ -179,7 +172,35 @@
         };
       };
 
+      rofi = {
+        enable = true;
+        package = pkgs.rofi-wayland;
+        plugins = with pkgs; [
+          rofi-calc
+          rofi-emoji
+          rofi-top
+          rofi-systemd
+          rofi-power-menu
+          rofi-file-browser
+        ];
+        extraConfig = {
+          # modi = "drun";
+        };
+      };
+
       fzf = {
+        enable = true;
+      };
+
+      mpv = {
+        enable = true;
+      };
+
+      git = {
+        enable = true;
+      };
+
+      home-manager = {
         enable = true;
       };
 
