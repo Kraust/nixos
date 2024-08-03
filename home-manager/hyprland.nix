@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-    opacity = "0.8";
+  opacity = "0.75";
 in
 {
   wayland.windowManager.hyprland.enable = true;
@@ -63,7 +63,7 @@ in
     ];
 
     monitor = [
-      "DP-2, 3840x2160, 0x0, 1"
+      "DP-1, 3840x2160, 0x0, 1"
       "DP-3, 3840x2160, 3840x0, 1"
       "Unknown-1, disable"
     ];
@@ -79,12 +79,12 @@ in
       drop_shadow = false;
       blur = {
         enabled = true;
-        size = 10;
-        passes = 3;
+        size = 5;
+        passes = 2;
         new_optimizations = true;
         ignore_opacity = true;
         noise = 0;
-        brightness = 0.90;
+        brightness = 0.5;
       };
     };
 
@@ -130,20 +130,20 @@ in
     ];
 
     workspace = [
-      "1, monitor:DP-2, default:true"
+      "1, monitor:DP-1, default:true"
       "10, monitor:DP-3, default:true"
     ];
 
+    cursor = {
+      no_hardware_cursors = true;
+    };
+
     env = [
-      "GDK_BACKEND=wayland,x11"
-      "SDL_VIDEODRIVER=wayland"
-      "CLUTTER_BACKEND=wayland"
-      "QT_AUTO_SCREEN_SCALE_FACTOR=1"
-      "QT_QPA_PLATFORM,wayland;xcb"
-      "GBM_BACKEND=nvidia-drm"
-      "__GLX_VENDOR_LIBRARY_NAME=nvidia"
-      "LIBVA_DRIVER_NAME=nvidia"
-      "WLR_DRM_NO_ATOMIC=1"
+      "LIBVA_DRIVER_NAME,nvidia"
+      "XDG_SESSION_TYPE,wayland"
+      "GBM_BACKEND,nvidia-drm"
+      "_GLX_VENDOR_LIBRARY_NAME,nvidia"
+      "NVD_BACKEND,direct"
     ];
   };
 }

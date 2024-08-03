@@ -43,10 +43,10 @@
         nick = "Kraust";
         server = {
           address = "38.154.192.115";
-          port = 9999;
+          port = 6667;
           autoConnect = true;
           ssl = {
-            enable = true;
+            enable = false;
             verify = false;
             certificateFile = /home/kraust/.certs/abjects.pem;
           };

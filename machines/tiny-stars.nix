@@ -27,15 +27,14 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # boot.extraModulePackages = with config.boot.kernelPackages; [
-  # ];
-
-  boot.extraModulePackages = [
+  boot.extraModulePackages = with config.boot.kernelPackages; [
     (config.boot.kernelPackages.callPackage ../software/rtl8812au.nix { })
+    zenpower
   ];
 
   boot.initrd.kernelModules = [
     "8812au"
+    "zenpower"
   ];
 
   # Blacklist watchdog.
@@ -48,7 +47,7 @@ in
   boot.kernelParams = [
   ];
 
-  boot.tmp.useTmpfs = false;
+  boot.tmp.useTmpfs = true;
 
   # OpenGL Config
   hardware.graphics.enable = true;

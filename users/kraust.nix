@@ -131,8 +131,8 @@
         mako
         glib
         xdg-utils
-        cinnamon.nemo-with-extensions
-        cinnamon.pix
+        nemo-with-extensions
+        pix
         playerctl
         wl-clipboard
         xclip
@@ -141,6 +141,22 @@
         openconnect
         jq
         lsd
+        gwe
+
+        winetricks
+        wineWowPackages.waylandFull
+        (lutris.override {
+          extraPkgs = pkgs: [
+            attr
+            gamescope
+            mangohud
+          ];
+          extraLibraries = pkgs: [
+            attr
+          ];
+        })
+
+        # (python3Packages.callPackage ../software/oscr.nix {})
       ];
     };
     programs = {

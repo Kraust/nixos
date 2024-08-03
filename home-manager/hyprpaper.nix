@@ -13,7 +13,7 @@ in
         wallpaper
       ];
       wallpaper = [
-        "DP-2,${wallpaper}"
+        "DP-1,${wallpaper}"
         "DP-3,${wallpaper}"
       ];
     };
