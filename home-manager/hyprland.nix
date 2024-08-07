@@ -63,8 +63,8 @@ in
     ];
 
     monitor = [
-      "DP-1, 3840x2160, 0x0, 1"
-      "DP-3, 3840x2160, 3840x0, 1"
+      "DP-4, 3840x2160, 0x0, 1"
+      "DP-6, 3840x2160, 3840x0, 1"
       "Unknown-1, disable"
     ];
 
@@ -130,8 +130,8 @@ in
     ];
 
     workspace = [
-      "1, monitor:DP-1, default:true"
-      "10, monitor:DP-3, default:true"
+      "1, monitor:DP-4, default:true"
+      "10, monitor:DP-6, default:true"
     ];
 
     cursor = {

@@ -4,6 +4,7 @@
 
 let
   kernel = pkgs.linuxPackages_6_8;
+  linuxKernelPackages = pkgs.linuxKernel.packages.linux_6_8;
 in
 {
 
@@ -29,12 +30,14 @@ in
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     (config.boot.kernelPackages.callPackage ../software/rtl8812au.nix { })
+    (config.boot.kernelPackages.callPackage ../software/ryzen-smu.nix { })
     zenpower
   ];
 
   boot.initrd.kernelModules = [
     "8812au"
     "zenpower"
+    "ryzen-smu"
   ];
 
   # Blacklist watchdog.
@@ -108,7 +111,7 @@ in
   users.users.kraust = {
     isNormalUser = true;
     description = "Kraust";
-    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" "scanner" "lp" "gamemode" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "tcpdump" "scanner" "lp" "gamemode" "libvirtd" ];
     shell = pkgs.fish;
   };
   programs.fish.enable = true;
@@ -126,4 +129,28 @@ in
 
   programs.gamemode.enable = true;
   programs.gamemode.settings.general.inhibit_screensaver = 0;
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      ovmf = {
+        enable = true;
+        packages = [
+          (pkgs.OVMF.override {
+            secureBoot = true;
+            tpmSupport = true;
+          }).fd
+        ];
+      };
+    };
+  };
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    linuxKernelPackages.ryzen-smu
+  ];
 }

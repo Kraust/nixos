@@ -142,6 +142,7 @@
         jq
         lsd
         gwe
+        virt-manager
 
         winetricks
         wineWowPackages.waylandFull
