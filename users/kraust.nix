@@ -143,6 +143,8 @@
         lsd
         gwe
         virt-manager
+        wxhexeditor
+        killall
 
         winetricks
         wineWowPackages.waylandFull
@@ -157,7 +159,7 @@
           ];
         })
 
-        # (python3Packages.callPackage ../software/oscr.nix {})
+        (callPackage ../software/cpu-speed.nix {})
       ];
     };
     programs = {
