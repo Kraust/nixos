@@ -3,8 +3,7 @@
 { config, pkgs, ... }:
 
 let
-  kernel = pkgs.linuxPackages_6_8;
-  linuxKernelPackages = pkgs.linuxKernel.packages.linux_6_8;
+  kernel = pkgs.linuxPackages_latest;
 in
 {
 
@@ -29,23 +28,15 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
-    (config.boot.kernelPackages.callPackage ../software/rtl8812au.nix { })
-    (config.boot.kernelPackages.callPackage ../software/ryzen-smu.nix { })
-    zenpower
   ];
 
   boot.initrd.kernelModules = [
-    "8812au"
-    "zenpower"
-    "ryzen-smu"
   ];
 
   # Blacklist watchdog.
   boot.blacklistedKernelModules = [
-    "sp5100_tco"
   ];
   boot.extraModprobeConfig = ''
-    options 8812au rtw_led_ctrl=0
   '';
   boot.kernelParams = [
   ];
@@ -151,6 +142,5 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    linuxKernelPackages.ryzen-smu
   ];
 }

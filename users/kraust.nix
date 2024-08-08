@@ -145,6 +145,7 @@
         virt-manager
         wxhexeditor
         killall
+        lm_sensors
 
         winetricks
         wineWowPackages.waylandFull
