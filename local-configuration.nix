@@ -1,5 +1,3 @@
-# vim: set sw=2:
-
 { config, pkgs, ... }:
 
 let
@@ -10,8 +8,8 @@ in
   imports = [
     <home-manager/nixos>
     <catppuccin/modules/nixos>
-    ../users/kraust.nix
-    ../software/nvidia.nix
+    ./users/kraust.nix
+    ./software/nvidia.nix
   ];
 
   # Use rt kernel.
@@ -31,14 +29,21 @@ in
   ];
 
   boot.initrd.kernelModules = [
+    "msr"
+    "vfio"
+    "vfio_iommu_type1"
+    "vfio_pci"
   ];
 
   # Blacklist watchdog.
   boot.blacklistedKernelModules = [
   ];
+  # options vfio-pci ids=1002:164e,1002:1640
   boot.extraModprobeConfig = ''
+    options vfio-pci ids=1002:67df,1002:aaf0
   '';
   boot.kernelParams = [
+    "amd_iommu=on"
   ];
 
   boot.tmp.useTmpfs = true;
@@ -138,9 +143,51 @@ in
       };
     };
   };
+  programs.virt-manager.enable = true;
+
+  # Possibly fixes Network Manager + 5GHz issues?
+  networking.networkmanager = {
+    wifi = {
+      scanRandMacAddress = false;
+      powersave = false;
+    };
+  };
+
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
+
+  programs.dconf.enable = true;
+
+  security.polkit.enable = true;
+  security.pam.loginLimits = [
+    {
+      domain = "@users";
+      item = "rtprio";
+      type = "-";
+      value = 1;
+    }
+  ];
+
+  services.gvfs = {
+    enable = true;
+  };
+
+  powerManagement.cpuFreqGovernor = "powersave";
+
+  virtualisation.spiceUSBRedirection.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    lm_sensors
+    linuxPackages.turbostat
+    gparted
   ];
 }

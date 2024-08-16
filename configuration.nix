@@ -9,7 +9,7 @@
     [
       /etc/nixos/hardware-configuration.nix
       /etc/nixos/local-configuration.nix
-      /etc/nixos/desktop.nix
+      # /etc/nixos/desktop.nix
     ];
 
   # Set your time zone.
@@ -105,7 +105,7 @@
     options = "--delete-older-than 30d";
   };
   nix.settings = {
-    experimental-features = [ "nix-command" ];
+    experimental-features = [ "nix-command" "flakes" ];
   };
 
   # Enable zram

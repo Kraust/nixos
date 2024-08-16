@@ -5,8 +5,7 @@
   home-manager.users.kraust = {
     imports = [
       <catppuccin/modules/home-manager>
-      ../home-manager/hyprland.nix
-      ../home-manager/hyprpaper.nix
+      ../home-manager/river.nix
       ../home-manager/ranger.nix
       ../home-manager/kitty.nix
       ../home-manager/glance.nix
@@ -34,7 +33,7 @@
 
               yaml-language-server
               java-language-server
-              # cmake-language-server
+              cmake-language-server
               gopls
               clang-tools
               nil
@@ -62,7 +61,7 @@
 
               yaml-language-server
               java-language-server
-              # cmake-language-server
+              cmake-language-server
               gopls
               clang-tools
               nil
@@ -102,12 +101,10 @@
           ];
         })
 
-        # go
         go
 
         opentabletdriver
 
-        xdg-desktop-portal
         virtualenv
         pre-commit
         protontricks
@@ -116,39 +113,19 @@
         nvd
         nix-output-monitor
         btop
-        hyprpaper
-        chromium
         wireshark
         alacritty
         clipnotify
         winetricks
         wineWowPackages.waylandFull
-
-        dbus
-        wayland
-        kitty
-        sway-contrib.grimshot
-        mako
-        glib
-        xdg-utils
-        nemo-with-extensions
-        pix
-        playerctl
-        wl-clipboard
-        xclip
-        ranger
-        irssi
-        openconnect
         jq
         lsd
         gwe
-        virt-manager
         wxhexeditor
         killall
-        lm_sensors
+        moonlight-qt
 
         winetricks
-        wineWowPackages.waylandFull
         (lutris.override {
           extraPkgs = pkgs: [
             attr
@@ -160,7 +137,7 @@
           ];
         })
 
-        (callPackage ../software/cpu-speed.nix {})
+        (callPackage ../software/cpu-speed.nix { })
       ];
     };
     programs = {
@@ -239,15 +216,6 @@
           color-scheme = "prefer-dark";
         };
       };
-    };
-
-    services.mako = {
-      enable = true;
-      defaultTimeout = 60000;
-      backgroundColor = "#1e1e2e";
-      textColor = "#cdd6f4";
-      borderColor = "#89b4fa";
-      progressColor = "over #313244";
     };
   };
 }
