@@ -4,7 +4,6 @@
 
   home-manager.users.kraust = {
     imports = [
-      <catppuccin/modules/home-manager>
       ../home-manager/river.nix
       ../home-manager/ranger.nix
       ../home-manager/kitty.nix

@@ -6,8 +6,6 @@ in
 {
 
   imports = [
-    <home-manager/nixos>
-    <catppuccin/modules/nixos>
     ./users/kraust.nix
     ./software/nvidia.nix
   ];
@@ -44,6 +42,7 @@ in
   '';
   boot.kernelParams = [
     "amd_iommu=on"
+    "nvidia_drm.fbdev=1"
   ];
 
   boot.tmp.useTmpfs = true;
@@ -190,4 +189,8 @@ in
     linuxPackages.turbostat
     gparted
   ];
+
+  # Enable Desktop
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 }

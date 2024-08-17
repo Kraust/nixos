@@ -7,9 +7,8 @@
 {
   imports =
     [
-      /etc/nixos/hardware-configuration.nix
-      /etc/nixos/local-configuration.nix
-      # /etc/nixos/desktop.nix
+      ./hardware-configuration.nix
+      ./local-configuration.nix
     ];
 
   # Set your time zone.
@@ -61,29 +60,31 @@
 
   # Fonts
   system.fsPackages = [ pkgs.bindfs ];
-  fileSystems = let
-    mkRoSymBind = path: {
-      device = path;
-      fsType = "fuse.bindfs";
-      options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
+  fileSystems =
+    let
+      mkRoSymBind = path: {
+        device = path;
+        fsType = "fuse.bindfs";
+        options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
+      };
+      aggregatedIcons = pkgs.buildEnv {
+        name = "system-icons";
+        paths = with pkgs; [
+          #libsForQt5.breeze-qt5  # for plasma
+          gnome-themes-extra
+        ];
+        pathsToLink = [ "/share/icons" ];
+      };
+      aggregatedFonts = pkgs.buildEnv {
+        name = "system-fonts";
+        paths = config.fonts.packages;
+        pathsToLink = [ "/share/fonts" ];
+      };
+    in
+    {
+      "/usr/share/icons" = mkRoSymBind "${aggregatedIcons}/share/icons";
+      "/usr/local/share/fonts" = mkRoSymBind "${aggregatedFonts}/share/fonts";
     };
-    aggregatedIcons = pkgs.buildEnv {
-      name = "system-icons";
-      paths = with pkgs; [
-        #libsForQt5.breeze-qt5  # for plasma
-        gnome-themes-extra
-      ];
-      pathsToLink = [ "/share/icons" ];
-    };
-    aggregatedFonts = pkgs.buildEnv {
-      name = "system-fonts";
-      paths = config.fonts.packages;
-      pathsToLink = [ "/share/fonts" ];
-    };
-  in {
-    "/usr/share/icons" = mkRoSymBind "${aggregatedIcons}/share/icons";
-    "/usr/local/share/fonts" = mkRoSymBind "${aggregatedFonts}/share/fonts";
-  };
 
   fonts = {
     packages = with pkgs; [
@@ -113,7 +114,7 @@
 
   programs.dconf.enable = true;
 
-  programs.neovim.enable = true ;
+  programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
 
   system.stateVersion = "23.11";

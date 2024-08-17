@@ -2,7 +2,9 @@
 
 set -x
 
-nix-channel --update
+cd $(realpath $(dirname "$0"))
+
+nix flake update
 nixos-rebuild switch --upgrade
 nix-env --delete-generations 30d
 nix-store --gc
