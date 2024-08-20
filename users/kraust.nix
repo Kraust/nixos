@@ -125,6 +125,8 @@
         moonlight-qt
 
         winetricks
+        bottles
+
         (lutris.override {
           extraPkgs = pkgs: [
             attr

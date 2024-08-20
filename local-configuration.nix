@@ -8,6 +8,7 @@ in
   imports = [
     ./users/kraust.nix
     ./software/nvidia.nix
+    ./software/stylix.nix
   ];
 
   # Use rt kernel.
@@ -203,4 +204,27 @@ in
     cosmic-greeter.enable = true;
   };
 
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    securityType = "auto";
+    extraConfig = ''
+      server min protocol = SMB2
+      lanman auth = yes
+      ntlm auth = yes
+      workgroup = WORKGROUP
+      usershare allow guests = yes
+      map to guest = bad user
+    '';
+    shares = {
+      samba = {
+        path = "/home/samba";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0777";
+        "directory mask" = "0777";
+      };
+    };
+  };
 }

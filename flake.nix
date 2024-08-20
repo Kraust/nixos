@@ -15,9 +15,14 @@
     catppuccin = {
       url = "github:catppuccin/nix";
     };
+
+    stylix = {
+      url = "github:danth/stylix";
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixos-cosmic, home-manager, catppuccin }: {
+  outputs = { self, nixpkgs, nixos-cosmic, home-manager, catppuccin, stylix }: {
     nixosConfigurations = {
       tiny-stars = nixpkgs.lib.nixosSystem {
         modules = [
@@ -37,6 +42,7 @@
           nixos-cosmic.nixosModules.default
           home-manager.nixosModules.home-manager
           catppuccin.nixosModules.catppuccin
+          stylix.nixosModules.stylix
           ./configuration.nix
         ];
       };
