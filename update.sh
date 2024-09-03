@@ -5,7 +5,7 @@ set -x
 cd $(realpath $(dirname "$0"))
 
 nix flake update
-nixos-rebuild switch --upgrade
+nixos-rebuild switch --flake
 nix-env --delete-generations 30d
 nix-store --gc
 # nix-collect-garbage -d

@@ -4,7 +4,6 @@
 
   home-manager.users.kraust = {
     imports = [
-      ../home-manager/river.nix
       ../home-manager/ranger.nix
       ../home-manager/kitty.nix
       ../home-manager/glance.nix
@@ -27,7 +26,7 @@
               (python3.withPackages (ps: with ps; [ python-lsp-server python-lsp-jsonrpc python-lsp-black python-lsp-ruff pyls-isort pyls-flake8 flake8 isort black ]))
 
               nodejs
-              vscode-langservers-extracted
+              # vscode-langservers-extracted
               # nodePackages_latest.bash-language-server
 
               yaml-language-server
@@ -55,7 +54,7 @@
               (python3.withPackages (ps: with ps; [ python-lsp-server python-lsp-jsonrpc python-lsp-black python-lsp-ruff pyls-isort pyls-flake8 flake8 isort black ]))
 
               nodejs
-              vscode-langservers-extracted
+              # vscode-langservers-extracted
               # nodePackages_latest.bash-language-server
 
               yaml-language-server
@@ -111,7 +110,6 @@
         protonup-qt
         nvd
         nix-output-monitor
-        btop
         wireshark
         alacritty
         clipnotify
@@ -126,12 +124,21 @@
 
         winetricks
         bottles
+        slack
+        rocmPackages.rocm-smi
+
+        btop
+        fastfetch
+        wl-clipboard
 
         (lutris.override {
           extraPkgs = pkgs: [
             attr
             gamescope
             mangohud
+            libthai
+            pango
+            gtk3
           ];
           extraLibraries = pkgs: [
             attr
@@ -164,10 +171,6 @@
           home = "cd /home/$USER/";
         };
 
-        catppuccin = {
-          enable = true;
-          flavor = "mocha";
-        };
       };
 
       rofi = {
@@ -204,11 +207,6 @@
 
     };
     fonts.fontconfig.enable = true;
-
-    catppuccin = {
-      enable = true;
-      flavor = "mocha";
-    };
 
     dconf = {
       enable = true;

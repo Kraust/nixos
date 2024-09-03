@@ -31,9 +31,4 @@
     wl-clipboard
     wl-clipboard-x11
   ];
-
-  services.mako = {
-    enable = true;
-    defaultTimeout = 60000;
-  };
 }

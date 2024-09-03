@@ -8,20 +8,34 @@
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.powerManagement.enable = true;
-  hardware.nvidia.powerManagement.finegrained = false;
-  hardware.nvidia.open = false;
-  hardware.nvidia.nvidiaSettings = true;
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "560.35.03";
+      sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
+      sha256_aarch64 = "";
+      openSha256 = "sha256-/32Zf0dKrofTmPZ3Ratw4vDM7B+OgpC4p7s+RHUjCrg=";
+      settingsSha256 = "sha256-kQsvDgnxis9ANFmwIwB7HX5MkIAcpEEAHc8IBOLdXvk=";
+      persistencedSha256 = "";
+      # patches = [ rcu_patch ];
+      patches = [ ];
+    };
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    version = "555.58.02";
-    sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-    sha256_aarch64 = "";
-    openSha256 = "";
-    settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-    persistencedSha256 = "";
-    # patches = [ rcu_patch ];
-    patches = [ ];
+    open = true;
+    nvidiaSettings = true;
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
+    modesetting = {
+      enable = true;
+    };
+    prime = {
+      offload = {
+        enable = true;
+    	enableOffloadCmd = true;
+      };
+      amdgpuBusId = "PCI:10:0:1";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 }
